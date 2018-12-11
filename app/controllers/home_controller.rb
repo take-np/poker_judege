@@ -78,38 +78,27 @@ class HomeController < ApplicationController
        # 役判定
        # ================================
        if suit_max == 5 #5枚のスートが一種類で構成されている
-         if judgeStraightFlash(numbers)
-           p "ストレートフラッシュ"
-         else
-           p "フラッシュ"
-         end
-
+         @result = judgeStraightFlash(numbers)
        else #5枚のスートが一種類で構成されてない
          if judgeStraight(numbers) == true
-           p "ストレート"
+           @result = judgeStraight(numbers)
          else
-           p(nonStraight(numbers))
+           @result = nonStraight(numbers)
          end
        end
        # ================================
-      redirect_to("/")
+      render("home/top")
   end
 
   # ストレートフラッシュか判定する関数
-  def judgeStraightFlash(numbers) # numbersは " 配列形式 "
+  def judgeStraightFlash(numbers)
     numbers = numbers.sort{|a, b| b<=>a} # numbersを昇順に並べる式
-    puts numbers
     # ストレートかどうかの判定式。
     # 行末の "\" は命令内で改行を無視するための（改行を可能にする式）
-
     if numbers[0]-numbers[1] == 1 && numbers[1] - numbers[2] == 1 && numbers[2] - numbers[3] == 1 && numbers[3] - numbers[4] == 1  || numbers == [13, 12, 11, 10, 1]
-      # ================================
-      # エラーメッセージ 文字列を分割するときに、h13は "h"と "1"に分割されている。
-      # とくに後ろの数字がひとけた目で終了しているため、そっこを2桁目まで盛り込めるにようにする
-      # ================================
-       return true
+       return "ストレートフラッシュ"
      else
-       return false
+       return "フラッシュ"
     end
   end
 
@@ -117,7 +106,7 @@ class HomeController < ApplicationController
   def judgeStraight(numbers)
     numbers = numbers.sort{|a, b| b<=>a}
     if numbers[0]-numbers[1] == 1 && numbers[1] - numbers[2] == 1 && numbers[2] - numbers[3] == 1 && numbers[3] - numbers[4] == 1
-      return true
+      return "ストレート"
     else
       return false
     end

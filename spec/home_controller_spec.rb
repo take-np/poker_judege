@@ -5,17 +5,17 @@ require 'rails_helper'
 describe HomeController do
   sf = [5, 2, 3, 4, 1]
   it "ストレートフラッシュ" do
-    expect(HomeController.new.judgeStraightFlash(sf)).to eq true
+    expect(HomeController.new.judgeStraightFlash(sf)).to eq "ストレートフラッシュ"
   end
 
   flash = [1, 3, 4, 13, 8]
   it "フラッシュ" do
-    expect(HomeController.new.judgeStraightFlash(flash)).to eq false
+    expect(HomeController.new.judgeStraightFlash(flash)).to eq "フラッシュ"
   end
 
   straight = [13, 9, 10 ,12, 11]
   it "ストレート" do
-    expect(HomeController.new.judgeStraight(straight)).to eq true
+    expect(HomeController.new.judgeStraight(straight)).to eq "ストレート"
   end
 
   four=[1,1,2,1,1]
