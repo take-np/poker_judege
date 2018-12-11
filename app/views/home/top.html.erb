@@ -1,0 +1,12 @@
+<h1>約判定</h1>
+<p>Find me in app/views/home/top.html.erb</p>
+
+  <% if @error_message %>
+    <%= @error_message %>
+  <% end %>
+
+  <%= form_tag ("/judge") do %>
+    <p>役判定</p>
+    <input type="text" name="cards" placeholder="判定する役を入力してください">
+    <input type="submit" value="役を判定する">
+  <% end %>   <!-- "end"には"=" いれない -->
