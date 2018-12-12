@@ -1,19 +1,41 @@
-<h1>約判定</h1>
-<p>Find me in app/views/home/top.html.erb</p>
+<h1>ポーカー役判定</h1>
+
+<p>判定したいポーカーの役を以下のように入力してください</p>
+  <blockquote>
+    H1 D1 C3 S1 H3
+  </blockquote>
+
+<h2>入力の方法</h2>
+<h3>カードの表現</h3>
+  <ul>
+    <li>ハート：H</li>
+    <li>スペード：S</li>
+    <li>クラブ：C</li>
+    <li>ダイヤ：D</li>
+    <li>数字：1-13</li>
+  </ul>
+<h3>カードの区切り</h3>
+<ul>
+  <li>カードとカードの間は<strong>半角スペース</strong>で区切ってください
+  </li>
+</ul>
 
   <!--入力エラーを表示  -->
-  <% if @error_message %>
+  <div class="error_message">
+    <% if @error_message %>
     <%= "エラーです：" + @error_message %>
-  <% end %>
+    <% end %>
+  </div>
 
   <!-- 約判定の結果を表示 -->
-  <% if @result %>
+  <div class="result">
+    <% if @result %>
     <%= @result %>
-  <% end  %>
+    <% end  %>    
+  </div>
 
   <!-- 入力フォーム -->
   <%= form_tag ("/judge") do %>
-    <p>役判定</p>
     <input type="text" name="cards" placeholder="判定する役を入力してください">
     <input type="submit" value="役を判定する">
   <% end %>   <!-- "end"には"=" いれない -->

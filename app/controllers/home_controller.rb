@@ -77,9 +77,11 @@ class HomeController < ApplicationController
        puts suit_max
        # 役判定
        # ================================
-       if suit_max == 5 #5枚のスートが一種類で構成されている
+      # 5枚のスートが一種類で構成されている
+       if suit_max == 5
          @result = judgeStraightFlash(numbers)
-       else #5枚のスートが一種類で構成されてない
+      # 5枚のスートが一種類で構成されてない
+       else
          if judgeStraight(numbers) == true
            @result = judgeStraight(numbers)
          else
