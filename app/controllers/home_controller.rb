@@ -8,10 +8,10 @@ class HomeController < ApplicationController
   # Validationのアイディア
   # render (url) and return で処理がそれ以降進まずにとまる
   # ================================
-    cards = params[:cards]
-    puts cards
+    @cards = params[:cards]
+    puts @cards
     # 入力内容のエラー
-    if cards == ""
+    if @cards == ""
       @error_message = "カードが入力されていません"
       puts @error_message
       render("home/top") and return
@@ -26,12 +26,12 @@ class HomeController < ApplicationController
 =end
 # cardの数が足りません
 
-    card_s = cards.split(" ")
+    @card_s = @cards.split(" ")
 
       # [同じカードが2枚以上含まれているエラー]
       count_max = 0
-      card_s.each do |check|
-        count_check = card_s.count(check)
+      @card_s.each do |check|
+        count_check = @card_s.count(check)
         if count_check > count_max
           count_max = count_check
         end
@@ -50,7 +50,7 @@ class HomeController < ApplicationController
       # 分割したsuitを入れていく配列
       suits = []
       # 入力文字を配列に代入する処理
-      card_s.each do |card|
+      @card_s.each do |card|
          item = card.split(/\A(.{1,1})/,2)[1..-1]
          suits.push(item[0])
          numbers.push(item[1].to_i)
@@ -79,13 +79,13 @@ class HomeController < ApplicationController
        # ================================
       # 5枚のスートが一種類で構成されている
        if suit_max == 5
-         @result = judgeStraightFlash(numbers)
+         @result = judge_straight_flash(numbers)
       # 5枚のスートが一種類で構成されてない
        else
-         if judgeStraight(numbers) == true
-           @result = judgeStraight(numbers)
+         if judge_straight(numbers)
+           @result = judge_straight(numbers)
          else
-           @result = nonStraight(numbers)
+           @result = judge_no_straight(numbers)
          end
        end
        # ================================
@@ -93,7 +93,7 @@ class HomeController < ApplicationController
   end
 
   # ストレートフラッシュか判定する関数
-  def judgeStraightFlash(numbers)
+  def judge_straight_flash(numbers)
     numbers = numbers.sort{|a, b| b<=>a} # numbersを昇順に並べる式
     # ストレートかどうかの判定式。
     # 行末の "\" は命令内で改行を無視するための（改行を可能にする式）
@@ -105,7 +105,7 @@ class HomeController < ApplicationController
   end
 
   # ストレートか判定する関数
-  def judgeStraight(numbers)
+  def judge_straight(numbers)
     numbers = numbers.sort{|a, b| b<=>a}
     if numbers[0]-numbers[1] == 1 && numbers[1] - numbers[2] == 1 && numbers[2] - numbers[3] == 1 && numbers[3] - numbers[4] == 1
       return "ストレート"
@@ -115,7 +115,7 @@ class HomeController < ApplicationController
   end
 
   # ストレート以外の役を判定する関数
-  def nonStraight(numbers)
+  def judge_no_straight(numbers)
     # 数値を並べ替え、
     # 降りる順になれべ変えたときの、小さいインデックスから同じ数字の数を確認する
     # 同じ数字の数を数える関数
@@ -143,7 +143,7 @@ class HomeController < ApplicationController
   end
 
 end
-# def judgeStraight(numbers) # numbersは " 配列形式 "
+# def judge_straight(numbers) # numbersは " 配列形式 "
 #   numbers = numbers.sort{|a, b| b<=>a} # numbersを降順に並べ替える式
 #   # ストレートかどうかの判定式。行末の "\" は命令命令内で改行を無視するための四季（改行を可能にする式）
 #   if ( \
