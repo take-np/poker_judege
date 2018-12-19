@@ -26,6 +26,8 @@ class HomeController < ApplicationController
 =end
 # cardの数が足りません
 
+# eachi_with_index(分割っしたカードと持っじ列。)
+
     @card_s = @cards.split(" ")
 
       # [同じカードが2枚以上含まれているエラー]
@@ -91,7 +93,8 @@ class HomeController < ApplicationController
        # ================================
       render("home/top")
   end
-
+# ================================
+# 下の２つの関数はまとめることができるはず
   # ストレートフラッシュか判定する関数
   def judge_straight_flash(numbers)
     numbers = numbers.sort{|a, b| b<=>a} # numbersを昇順に並べる式
@@ -113,7 +116,7 @@ class HomeController < ApplicationController
       return false
     end
   end
-
+# ================================
   # ストレート以外の役を判定する関数
   def judge_no_straight(numbers)
     # 数値を並べ替え、
