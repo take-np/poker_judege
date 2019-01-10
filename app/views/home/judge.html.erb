@@ -1,4 +1,4 @@
-<h1>ポーカー役判定</h1>
+<h1>結果-ポーカー役判定</h1>
 
 <p>判定したいポーカーの役を以下のように入力してください</p>
   <blockquote>
@@ -20,8 +20,19 @@
   </li>
 </ul>
 
-  <!-- 入力フォーム -->
-  <%= form_tag ("/judge") do %>
-    <input type="text" name="cards" placeholder="判定する役を入力してください">
-    <input type="submit" value="役を判定する">
-  <% end %>   <!-- "end"には"=" いれない -->
+<!-- 約判定の結果を表示 -->
+<div class="result">
+  <h2>結果</h2>
+  <%= @result %>
+</div>
+
+<!--入力エラーを表示  -->
+<div class="error_message">
+  <% if @error_messages  %>
+    <h2>エラー</h2>
+    <% @error_messages.each do |error| %>
+      <li><%= error %><br></li>
+    <% end %>
+  <% end  %>
+</div>
+<%= link_to("もう一度判定する", "/") %>

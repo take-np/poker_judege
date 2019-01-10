@@ -5,5 +5,4 @@ describe TestController do
   it "足し算" do
     expect(TestController.new.add(1, 1)).to eq 2
   end
-
 end
