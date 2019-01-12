@@ -33,17 +33,17 @@ class JudgeCards
     end
 
     if number_array[0] == 4
-      @result = {yaku: "フォーオブアカインド", point: 8}
+      @result = {hand: "フォーオブアカインド", point: 8}
     elsif number_array[0] ==3 && number_array[1]==2
-      @result = {yaku: "フルハウス", point: 7}
+      @result = {hand: "フルハウス", point: 7}
     elsif number_array[0] == 3 && number_array[1] == 1
-      @result = {yaku: "スリー・オブ・ア・カインド", point: 4}
+      @result = {hand: "スリー・オブ・ア・カインド", point: 4}
     elsif number_array[0] == 2 && number_array[1] == 2
-      @result = {yaku: "ツーペア", point: 3}
+      @result = {hand: "ツーペア", point: 3}
     elsif number_array[0] == 2 && number_array[1] == 1
-      @result = {yaku: "ワンペア", point: 2}
+      @result = {hand: "ワンペア", point: 2}
     else
-      @result = {yaku: "ハイカード", point: 1}
+      @result = {hand: "ハイカード", point: 1}
     end
   end
 
@@ -51,15 +51,15 @@ class JudgeCards
     split_suit_number(card)  # =>     @numbers,@suits}
     numbers = @numbers.sort{|a, b| b<=>a}
     if numbers == [13, 12, 11, 10, 1] && count_suit(@suits) == 5
-      @result = {yaku: "ストレートフラッシュ", point: 9}
+      @result = {hand: "ストレートフラッシュ", point: 9}
     elsif numbers[0]-numbers[1] == 1 && numbers[1] - numbers[2] == 1 && numbers[2] - numbers[3] == 1 && numbers[3] - numbers[4] == 1
       if count_suit(@suits) == 5
-        @result = {yaku: "ストレートフラッシュ", point: 9}
+        @result = {hand: "ストレートフラッシュ", point: 9}
       else
-        @result = {yaku: "ストレート", point: 5}
+        @result = {hand: "ストレート", point: 5}
       end
     elsif count_suit(@suits) == 5
-      @result = {yaku: "フラッシュ", point: 6}
+      @result = {hand: "フラッシュ", point: 6}
     else
       judge_number_except_straight_flash(numbers)
     end

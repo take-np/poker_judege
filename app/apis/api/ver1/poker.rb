@@ -32,24 +32,37 @@ module API
           # ================================
         post do
           cards = params[:cards]
-          check = CheckInput.new.check(cards)
-          # 入力したデータを受取
-          if check.empty?
-            judge = JudgeCards.new.judge_cards(cards)
-            result = {
-              card: cards,
-              result: judge,
-              error: check,
-            }
-            return result
-          else
-            result = {
-              card: cards,
-              error: check,
-            }
-            return result
-            # @cards = params[:cards]
+          strongest = 0
+          cards.each_with_index do |card_compare,i|
+            point_each = JudgeCards.new.judge_cards(card_compare)[:point]
+            if point_each > strongest
+              strongest = point_each
+            end
+            return strongest
           end
+
+          result = []
+          cards.each_with_index do |card,i|
+            result_each ={}
+            result_each[:card] = card
+            error = CheckInput.new.check(card)[0]
+            if error.empty?
+              result_each[:hand] = JudgeCards.new.judge_cards(card)[:hand]
+              point_each = JudgeCards.new.judge_cards(card)[:point]
+              if point_each >= strongest
+                result_each[:best] = true
+              else
+                reult_each[:best] = false
+              end
+            else
+              result_each[:error] = error
+            end
+
+            result.append(result_each)
+            return result
+          end
+          binding.pry
+          return {result: result}
         end
       end
     end
