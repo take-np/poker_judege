@@ -1,11 +1,11 @@
-<h1>ポーカー役判定</h1>
+  <h1>判定したい約を入力――ポーカー役判定</h1>
 
 <p>判定したいポーカーの役を以下のように入力してください</p>
   <blockquote>
     H1 D1 C3 S1 H3
   </blockquote>
 
-<h2>入力の方法</h2>
+<h2>入力のルール</h2>
 <h3>カードの表現</h3>
   <ul>
     <li>ハート：H</li>
@@ -18,10 +18,13 @@
 <ul>
   <li>カードとカードの間は<strong>半角スペース</strong>で区切ってください
   </li>
+  <li>入力するカードの先頭と末尾には<strong>スペース</strong>を入れないでください</li>
 </ul>
 
+<div class="container">
   <!-- 入力フォーム -->
   <%= form_tag ("/judge") do %>
     <input type="text" name="cards" placeholder="判定する役を入力してください">
     <input type="submit" value="役を判定する">
   <% end %>   <!-- "end"には"=" いれない -->
+</div>

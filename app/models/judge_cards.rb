@@ -1,4 +1,7 @@
+require '.\app\models\check_input.rb'
+
 class JudgeCards
+  # =============== 以下webアプリ・API共通メソッド ===============
   def split_suit_number(card)
     @card_split = card.split(" ")
     @numbers = []
@@ -65,4 +68,41 @@ class JudgeCards
     end
     return @result
   end
+  # =============== ここまでwebアプリ・API共通メソッド ===============
+
+  # =============== 以下API用メソッド ===============
+  def judge_strong_card(cards)
+    strongest = 0
+    cards.each_with_index do |card_compare,i|
+      point_each = judge_cards(card_compare)[:point]
+      if point_each > strongest
+        strongest = point_each
+      end
+      return strongest
+    end
+  end
+
+  def judge_cards_for_api(cards)
+    result = []
+    strongest_point = judge_strong_card(cards)
+    cards.each_with_index do |card,i|
+      result_each ={}
+      result_each[:card] = card
+      point_each = judge_cards(card)[:point]
+      error = CheckInput.new.check(card)
+      if error.empty?
+        result_each[:hand] = judge_cards(card)[:hand]
+        if point_each >= strongest_point
+          result_each[:best] = true
+        else
+          result_each[:best] = false
+        end
+      else
+        result_each[:error] = error
+      end
+      result.append(result_each)
+    end
+    return result
+  end
+  # =============== ここまでAPI用メソッド ===============
 end

@@ -1,16 +1,18 @@
 class CheckInput
+  # 同じカードの枚数を数える
   def check_same_cards(card)
     @count_max = 0
     card_split = card.split(" ")
     card_split.each_with_index do |check, i|
       count_check = card_split.count(check)
       if count_check > @count_max
-        @count_max = count_check
+@count_max = count_check
       end
     end
     return @count_max
   end
 
+# それぞれのカードが、指定した形式で入力されているか
   def check_each_cards(card)
     @check_message = []
     @count_error = 0
@@ -26,13 +28,12 @@ class CheckInput
 
   def check(card)
     @error_message = []
-    if card.empty?
     # 値が入力されていない場合
+    if card.empty?
       @error_message.push( "値が入力されていません" )
     end
-
-    if card !~ (/^\w*\s\w*\s\w*\s\w*\s\w*$/)
     # 設定した入力形式にしたがっていない場合
+    if card !~ (/^\w*\s\w*\s\w*\s\w*\s\w*$/)
       @error_message.push( "5枚のカードの指定文字を、半角スペースで区切って入力してください" )
     end
     if check_each_cards(card) >= 1
