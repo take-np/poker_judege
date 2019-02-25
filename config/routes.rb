@@ -1,6 +1,6 @@
 Rails.application.routes.draw do
-  post '/judge' => 'home#judge'
-  get '/judge' => 'home#top'
+  post '/top' => 'home#top'
+  get '/top' => 'home#top'
   get '/' => 'home#top'
 
   mount API::Root => '/'

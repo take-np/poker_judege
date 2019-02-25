@@ -22,6 +22,7 @@ describe HomeController do
   it "フォーオブアカインド" do
     expect(HomeController.new.judge_no_straight(four)).to eq "フォーオブアカインド"
   end
+
   house = [3, 13, 3, 13, 13]
   it "フルハウス" do
     expect(HomeController.new.judge_no_straight(house)).to eq "フルハウス"

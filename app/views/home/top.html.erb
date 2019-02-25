@@ -12,19 +12,36 @@
     <li>スペード：S</li>
     <li>クラブ：C</li>
     <li>ダイヤ：D</li>
-    <li>数字：1-13</li>
+    <li>数字：1-13</<li></li>>
   </ul>
 <h3>カードの区切り</h3>
 <ul>
   <li>カードとカードの間は<strong>半角スペース</strong>で区切ってください
   </li>
   <li>入力するカードの先頭と末尾には<strong>スペース</strong>を入れないでください</li>
-</ul>
+<!-- </ul> -->
 
 <div class="container">
   <!-- 入力フォーム -->
-  <%= form_tag ("/judge") do %>
+  <%= form_tag ("/top") do %>
     <input type="text" name="cards" placeholder="判定する役を入力してください">
     <input type="submit" value="役を判定する">
   <% end %>   <!-- "end"には"=" いれない -->
 </div>
+
+<!-- 約判定の結果を表示 -->
+<h2>結果</h2>
+<div class="result">
+  <%= @result %>
+</div>
+
+<!--入力エラーを表示  -->
+<div class="error_message">
+  <% if @error_messages  %>
+    <h2>エラー</h2>
+    <% @error_messages.each do |error| %>
+      <li><%= error %><br></li>
+    <% end %>
+  <% end  %>
+</div>
+<%= link_to("もう一度判定する", "/top") %>

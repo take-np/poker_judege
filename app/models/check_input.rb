@@ -6,7 +6,7 @@ class CheckInput
     card_split.each_with_index do |check, i|
       count_check = card_split.count(check)
       if count_check > @count_max
-@count_max = count_check
+        @count_max = count_check
       end
     end
     return @count_max
@@ -29,7 +29,7 @@ class CheckInput
   def check(card)
     @error_message = []
     # 値が入力されていない場合
-    if card.empty?
+    if card.empty? or card.nil?
       @error_message.push( "値が入力されていません" )
     end
     # 設定した入力形式にしたがっていない場合
